@@ -1,1 +1,1 @@
-animascan
+AnimaScan

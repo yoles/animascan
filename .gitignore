@@ -1,0 +1,8 @@
+#Ignore everything
+*/*
+.classpath
+.project
+#but
+!.gitignore
+!src/*
+/target/
