@@ -1,6 +1,4 @@
-#Ignore everything
-*
-#but
-!pom.xml
-!.gitignore
-!src/*
+.classpath
+.project
+target/
+.settings/
