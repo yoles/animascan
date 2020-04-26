@@ -1,15 +1,22 @@
 package fr.lesueur.yohann.validator;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.lesueur.yohann.print.error.PError;
 import fr.lesueur.yohann.print.help.Printer;
 import fr.lesueur.yohann.services.MangaService;
 import fr.lesueur.yohann.services.PropertyService;
 
 public class ArgsValidator {
+
+	private static final Logger logger = LogManager.getLogger(ArgsValidator.class);
+	
 	private final static int MAX_ARGS = 3;
 	
 	public static void checkNumbers(String ...args) {
 	    if (args.length > MAX_ARGS) {
+	    	logger.error("Too much arguments");
 	    	PError.invalidArgs();
 	    }
 	}
@@ -24,7 +31,7 @@ public class ArgsValidator {
 	public static String checkSource(PropertyService ps, String ...args) {
 		String source = null;
 		
-		if (args.length >= 2) {
+		if (args.length > 2) {
 			String sourceArg = args[2].toLowerCase();
 			source = ps.findByKey(sourceArg);
 		}

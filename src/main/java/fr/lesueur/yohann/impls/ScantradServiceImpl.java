@@ -3,6 +3,8 @@ package fr.lesueur.yohann.impls;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,7 +17,8 @@ import fr.lesueur.yohann.services.MangaService;
 import fr.lesueur.yohann.services.ScanService;
 
 public class ScantradServiceImpl implements ScanService {
-	
+
+	private static final Logger logger = LogManager.getLogger(ScantradServiceImpl.class);
 	List<String> imgsUrl;
 	private Scan scan;
 
@@ -32,7 +35,7 @@ public class ScantradServiceImpl implements ScanService {
 		try {
 			doc = Jsoup.connect(url).get();
 		}catch (Exception e) {
-			System.out.println("Error dans l'URL");
+			logger.error("Error in url : " + e.getMessage() + " " + url);
 			e.printStackTrace();
 			System.exit(-1);
 		}

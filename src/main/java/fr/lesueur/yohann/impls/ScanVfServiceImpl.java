@@ -1,5 +1,7 @@
 package fr.lesueur.yohann.impls;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,6 +15,7 @@ import fr.lesueur.yohann.services.ScanService;
 
 public class ScanVfServiceImpl implements ScanService{
 	
+	private static final Logger logger = LogManager.getLogger(ScanVfServiceImpl.class);
 	private Scan scan;
 
 	public ScanVfServiceImpl(Scan scan) {
@@ -27,7 +30,7 @@ public class ScanVfServiceImpl implements ScanService{
 		try {
 			doc = Jsoup.connect(url).get();
 		}catch (Exception e) {
-			System.out.println("Error dans l'URL");
+			logger.error("Error in url : " + e.getMessage() + " "  + url);
 			e.printStackTrace();
 			System.exit(-1);
 		}
