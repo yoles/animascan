@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.lesueur.yohann.entities.Manga;
 import fr.lesueur.yohann.entities.Scan;
 import fr.lesueur.yohann.gui.Window;
@@ -16,11 +19,11 @@ import fr.lesueur.yohann.services.MangaService;
 import fr.lesueur.yohann.services.PropertyService;
 import fr.lesueur.yohann.services.ScanService;
 import fr.lesueur.yohann.validator.ArgsValidator;
-
-
 public class App {
+	private static final Logger logger = LogManager.getLogger(App.class);
 	
 	public static void main(String[] args) {
+		
 		if(args.length == 0) {
 			Window.main(args);
 		} else {
@@ -48,7 +51,7 @@ public class App {
 			Document doc = scanService.connect(null);
 			Elements anchors = scanService.getMangaListHTML(doc);
 			scanService.addMangaFromHTML(anchors, mangaService);
-			
+
 			ArgsValidator.checkHelp(mangaService, args);
 			Printer.CLIWelcome();
 			
@@ -57,12 +60,13 @@ public class App {
 			
 			Manga manga = mangaService.findByName(nameInput);
 			if (manga == null) {
+		        logger.error(nameInput + " is not on web site source: " + sourceUrl + ", try to change the source");
 				System.exit(-1);
 			}
 			try {
 				chapterInput = (args[1].equals("last")) ? manga.getLastChapter() : Integer.parseInt(args[1]);
 			} catch (Exception e) {
-				PError.invalidChapter();
+				PError.invalidChapter(args);
 			}
 			
 			String url = scanService.getImgUrl(manga.getUrl(), chapterInput);
