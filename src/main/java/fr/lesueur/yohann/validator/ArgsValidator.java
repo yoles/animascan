@@ -12,7 +12,14 @@ public class ArgsValidator {
 
 	private static final Logger logger = LogManager.getLogger(ArgsValidator.class);
 	
-	private final static int MAX_ARGS = 3;
+	private final static int MAX_ARGS = 4;
+	
+	public static boolean checkGUIMod(String ...args) {
+		for (String arg: args) {
+			PropertyService.ENV = (arg.equals("DEV")) ? "DEV" : PropertyService.ENV; 
+		}
+	    return (args.length == 0 || args[0].toUpperCase().equals("DEV"));
+	}
 	
 	public static void checkNumbers(String ...args) {
 	    if (args.length > MAX_ARGS) {
@@ -30,8 +37,7 @@ public class ArgsValidator {
 	
 	public static String checkSource(PropertyService ps, String ...args) {
 		String source = null;
-		
-		if (args.length > 2) {
+		if (args.length > 2 && !(args[2].toUpperCase().equals("DEV"))) {
 			String sourceArg = args[2].toLowerCase();
 			source = ps.findByKey(sourceArg);
 		}
