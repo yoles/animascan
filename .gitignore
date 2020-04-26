@@ -1,8 +1,6 @@
 #Ignore everything
-*/*
-.classpath
-.project
+*
 #but
+!pom.xml
 !.gitignore
 !src/*
-/target/
