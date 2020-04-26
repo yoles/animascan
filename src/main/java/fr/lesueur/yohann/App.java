@@ -1,11 +1,10 @@
-
+package fr.lesueur.yohann;
 import java.util.ArrayList;
-
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import fr.lesueur.yohann.entities.Manga;
 import fr.lesueur.yohann.entities.Scan;
@@ -19,12 +18,14 @@ import fr.lesueur.yohann.services.MangaService;
 import fr.lesueur.yohann.services.PropertyService;
 import fr.lesueur.yohann.services.ScanService;
 import fr.lesueur.yohann.validator.ArgsValidator;
+
 public class App {
 	private static final Logger logger = LogManager.getLogger(App.class);
 	
 	public static void main(String[] args) {
 		
-		if(args.length == 0) {
+		boolean isGUI = ArgsValidator.checkGUIMod(args);
+		if(isGUI) {
 			Window.main(args);
 		} else {
 			ArgsValidator.checkNumbers(args);
