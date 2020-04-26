@@ -2,17 +2,14 @@ package fr.lesueur.yohann.services;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
-import org.jsoup.Connection.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import fr.lesueur.yohann.print.error.PError;
 
 public interface ScanService {
 	public static final Logger logger = LogManager.getLogger(ScanService.class);
@@ -44,7 +41,7 @@ public interface ScanService {
 	default String createDownloadDir(String magaName, int chapterInput) {
 		String currentDirectory = System.getProperty("user.dir");
 		String nameInput = magaName.toLowerCase().replace(' ', '-');
-		String fullName = currentDirectory+"/"+nameInput+"/chapter"+chapterInput;
+		String fullName = currentDirectory+"/mangas/"+nameInput+"/chapter"+chapterInput;
 		File newDir = new File(fullName);
 
 		newDir.mkdirs();
