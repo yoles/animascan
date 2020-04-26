@@ -4,21 +4,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 public class PropertyService {
 
+	private static final Logger logger = LogManager.getLogger(PropertyService.class);
+	public static String ENV = "PROD";
     private Properties prop;
     private String currentSource;
-    
+	
 	public PropertyService() {
-		final String DEV = "source.properties";
-		final String PROD = "resources/"+DEV;
+		final String base = "source.properties";
+		final String runner = (ENV.equals("DEV")) ? base : "resources/"+base;
 		
 		this.currentSource = "";
-		try(InputStream input = PropertyService.class.getClassLoader().getResourceAsStream(PROD)) {
+		try(InputStream input = PropertyService.class.getClassLoader().getResourceAsStream(runner)) {
             this.prop = new Properties();
-            prop.load(input);
+            this.prop.load(input);
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+        	logger.error(e.getMessage());
+        	e.printStackTrace();
         }
 	}
 	
