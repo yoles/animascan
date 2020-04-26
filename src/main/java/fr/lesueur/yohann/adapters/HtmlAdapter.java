@@ -10,7 +10,22 @@ import fr.lesueur.yohann.entities.Manga;
 import fr.lesueur.yohann.services.MangaService;
 import fr.lesueur.yohann.services.ScanService;
 
+/**
+ * HtmlAdapter represent the raw HTML converter into a Manga 
+ * 
+ * @see Manga
+ * 
+ * */
 public class HtmlAdapter {
+	
+	/**
+	 * 
+	 * @param elts
+	 * @param elt
+	 * @param scanService
+	 * @param mangaService
+	 * @return
+	 */
 	public static Manga toManga(Elements elts, Element elt, ScanService scanService, MangaService mangaService) {
 		int lastChapter = 0;
 		String lastChaperStr = scanService.getMangaInfosHTML(elt, "media-body").text();
@@ -32,7 +47,6 @@ public class HtmlAdapter {
 		String lastChaperStr = elt.getElementsByClass("hmi-sub").text();
 		lastChapter = Integer.parseInt(lastChaperStr.substring(19));
 		
-//		System.out.println(lastChapter);
         Manga manga = null;
         if (!name.isEmpty())
 			manga = new Manga(name, elt.attr("href"), lastChapter);
