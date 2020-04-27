@@ -1,10 +1,10 @@
 package fr.lesueur.yohann.entities;
 
 /**
- * <b>Manga class represent the Manga fetched as follow:</b>
+ * <b>The Manga class represent the Manga fetched as follow:</b>
  * <p>
  * <ul>
- * <li>Url of the website where to find images and chapters</li>
+ * <li>Url of the website where to find details about the manga (images,chapters ...)</li>
  * <li>Name of the manga as define on the web site source url</li>
  * <li>LastChapter available on site</li>
  * </ul>
